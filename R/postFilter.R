@@ -42,7 +42,7 @@ postFilter <- function(res){
       if(res$Inferred.Model[i] == "M0.1" | res$Inferred.Model[i] == "M0.2" | res$Inferred.Model[i] == "M2.1" | res$Inferred.Model[i] == "M2.2"){
 
         #we check the marginal p values and if they are less than 0.01, we re classify as "Other"
-        if(res$`pV1:T2`[i] < 0.01 & res$`pV1:T1`[i] < 0.01){
+        if(res$`pV1.T2`[i] < 0.01 & res$`pV1.T1`[i] < 0.01){
 
           res$Inferred.Model2[i] <- "Other"
 
@@ -59,7 +59,7 @@ postFilter <- function(res){
       }
 
       #for all the models, we check the marginal pvalues, if they are greather than 0.05, we re classify as "Other"
-      if(res$`pV1:T2`[i] > 0.05 & res$`pV1:T1`[i] > 0.05){
+      if(res$`pV1.T2`[i] > 0.05 & res$`pV1.T1`[i] > 0.05){
 
         res$Inferred.Model2[i] <- "Other"
 
