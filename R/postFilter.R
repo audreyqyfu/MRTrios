@@ -71,6 +71,37 @@ postFilter <- function(res){
 
     }
 
+
+    #if classification is M1.1
+    if(res$Inferred.Model[i] == "M1.1"){
+
+      #we check the marginal p values between V1 and T2. If they are greather than 0.05, we re classify as "Other"
+      if(res$`pV1.T2`[i] > 0.05){
+
+        res$Inferred.Model2[i] <- "Other"
+
+      }
+    }else{
+
+      res$Inferred.Model2[i] <- res$Inferred.Model[i]
+
+    }
+
+    #if classification is M1.2
+    if(res$Inferred.Model[i] == "M1.2"){
+
+      #we check the marginal p values between V1 and T1. If they are greather than 0.05, we re classify as "Other"
+      if(res$`pV1.T1`[i] > 0.05){
+
+        res$Inferred.Model2[i] <- "Other"
+
+      }
+    }else{
+
+      res$Inferred.Model2[i] <- res$Inferred.Model[i]
+
+    }
+
     return(res)
 
 }
