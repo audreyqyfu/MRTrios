@@ -76,12 +76,12 @@ b22
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the conditional test T2 ~ T1 | V,U
 }\if{html}{\out{</div>}}
 
-V1.T1
+V1:T1
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the marginal test between V1 and T1
 }\if{html}{\out{</div>}}
 
-V1.T2
+V1:T2
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the marginal test between V1 and T2
 }\if{html}{\out{</div>}}
@@ -106,12 +106,12 @@ pb22
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T2 ~ T1 | V,U
 }\if{html}{\out{</div>}}
 
-pV1.T1
+pV1:T1
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the marginal test between V1 and T1
 }\if{html}{\out{</div>}}
 
-pV1.T2
+pV1:T2
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the marginal test between V1 and T2
 }\if{html}{\out{</div>}}

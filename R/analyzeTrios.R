@@ -31,10 +31,10 @@
 #' @return b22
 #' @return      the indicator 0,1 value for the conditional test T2 ~ T1 | V,U
 
-#' @return V1.T1
+#' @return V1:T1
 #' @return      the indicator 0,1 value for the marginal test between V1 and T1
 
-#' @return V1.T2
+#' @return V1:T2
 #' @return      the indicator 0,1 value for the marginal test between V1 and T2
 
 #' @return pb11
@@ -49,10 +49,10 @@
 #' @return pb22
 #' @return      the p-value for the conditional test T2 ~ T1 | V,U
 
-#' @return pV1.T1
+#' @return pV1:T1
 #' @return      the p-value for the marginal test between V1 and T1
 
-#' @return pV1.T2
+#' @return pV1:T2
 #' @return      the p-value for the marginal test between V1 and T2
 
 #' @return Minor.freq
