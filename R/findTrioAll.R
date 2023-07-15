@@ -54,15 +54,35 @@ findTrioAll <- function(meth.data, cna.data, gene.data, nStartMeth, nStartGene, 
 
   if(length(dup.CNA) > 0){
 
-    #remove any empty values in the uni list and skip the duplicated rows in CNA data
-    uni <- uni[-na.omit(match(cna$Hugo_Symbol[dup.CNA], uni))]
+      #remove any empty values in the uni list and skip the duplicated rows in CNA data
+      rows <- match(cna.data$Hugo_Symbol[dup.CNA], uni)
+
+      if(length(rows) > 0){
+
+        uni <- uni[-na.omit(rows)]
+
+      }else{
+
+        uni <- uni
+
+      }
 
     }
 
   if(length(dup.GENE) > 0){
 
-    #skip the duplicated rows in Gene Exp data
-    uni <- uni[-na.omit(match(gene$Hugo_Symbol[dup.GENE], uni))]
+      #skip the duplicated rows in Gene Exp data
+      rows <- match(gene.data$Hugo_Symbol[dup.GENE], uni)
+
+      if(length(rows) > 0){
+
+        uni <- uni[-na.omit(rows)]
+
+      }else{
+
+        uni <- uni
+
+      }
 
     }
 

@@ -1,6 +1,6 @@
 Package: MRTrios
 Title: Mendelian Randomization analysis for genomic trios 
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     c(person("Bandita", "Karki", , "kark6289@vandals.uidaho.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID")), person("Audrey", "Fu", ,
