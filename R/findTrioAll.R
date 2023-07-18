@@ -55,15 +55,11 @@ findTrioAll <- function(meth.data, cna.data, gene.data, nStartMeth, nStartGene, 
   if(length(dup.CNA) > 0){
 
       #remove any empty values in the uni list and skip the duplicated rows in CNA data
-      rows <- match(cna.data$Hugo_Symbol[dup.CNA], uni)
+      rows <- na.omit (match(cna.data$Hugo_Symbol[dup.CNA], uni))
 
       if(length(rows) > 0){
 
         uni <- uni[-na.omit(rows)]
-
-      }else{
-
-        uni <- uni
 
       }
 
@@ -72,15 +68,11 @@ findTrioAll <- function(meth.data, cna.data, gene.data, nStartMeth, nStartGene, 
   if(length(dup.GENE) > 0){
 
       #skip the duplicated rows in Gene Exp data
-      rows <- match(gene.data$Hugo_Symbol[dup.GENE], uni)
+      rows <- na.omit (match(gene.data$Hugo_Symbol[dup.GENE], uni))
 
       if(length(rows) > 0){
 
         uni <- uni[-na.omit(rows)]
-
-      }else{
-
-        uni <- uni
 
       }
 
@@ -112,19 +104,23 @@ findTrioAll <- function(meth.data, cna.data, gene.data, nStartMeth, nStartGene, 
   gene.na.rows <- which(is.na(tmp[,4]))
 
   #loop through the rows that did not have a gene match in CNA data
-  for(i in 1:length(cna.na.rows)){
-
-    #find the entrez id match and replace the NA
-    tmp[cna.na.rows[i],3] <- entrezCNA(cna.na.rows[i], tmp, cna.data, gene.data)
+  if (length (cna.na.rows) > 0) {
+    for(i in 1:length(cna.na.rows)){
+      
+      #find the entrez id match and replace the NA
+      tmp[cna.na.rows[i],3] <- entrezCNA(cna.na.rows[i], tmp, cna.data, gene.data)
+    }
   }
 
   #print(tmp[1:5,])
 
   #loop through the rows that did not have a gene match in Gene Exp data
-  for(i in 1:length(gene.na.rows)){
-
-    #find the entrez id match and replace the NA
-    tmp[gene.na.rows[i],4] <- entrezGENE(gene.na.rows[i], tmp, cna.data, gene.data)
+  if (length (gene.na.rows) > 0) {
+    for(i in 1:length(gene.na.rows)){
+      
+      #find the entrez id match and replace the NA
+      tmp[gene.na.rows[i],4] <- entrezGENE(gene.na.rows[i], tmp, cna.data, gene.data)
+    }
   }
 
   #print(tmp[1:5,])
