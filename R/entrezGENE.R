@@ -50,9 +50,9 @@ entrezGENE <- function(gene.row, data, cna, gene){
   entrez.row.gene <- which(gene$Entrez_Gene_Id == cna$Entrez_Gene_Id[as.integer(data[gene.row,3])])
   entrez.row.gene
 
-  #check if the matched row is NA or not
+  #check if the matched row is NA or has more than 1 match (duplicated)
   #If not proceed
-  if(length(entrez.row.gene) < 1){
+  if(length(entrez.row.gene) != 1){
 
     #replace the matched rows with the respective NA spots in the tmp data
     entrez.row.gene <- NA
