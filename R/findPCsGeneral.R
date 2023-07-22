@@ -1,4 +1,4 @@
-#' A function to calculate Principal Components (PCs) and significantly associated PCs with the data.
+#' A function to derive Principal Components (PCs) and identify significantly associated PCs with the data.
 #'
 #' This function uses Principal Component Analysis which can be used to analyze the high dimensional data while retaining the information that is important in the data. The PC score matrix is the coefficients of the linear combination of the initial variables that form the Principle Components and we find the PCs that are highly associated with the data.
 #'
@@ -29,19 +29,17 @@
 #'
 #' @seealso [prcomp()] used to calculate the PC score matrix; 
 #'          [get.conf.matrix()] used to identify PCs that are significantly associated with the input;
-#'          [findPCsGeneral()] used to derive and identify PCs for general cases where there are no subtypes.
+#'          [findPCs()] used to derive and identify PCs for the breast cancer cohort with two subtypes (ER+ and ER-).
 #'
 #' @examples #load the datasets
 #' @examples data(gene)
 #' @examples data(meth)
-#' @examples data(clinical.neg)
-#' @examples data(clinical.pos)
 #'
 #' @examples #Find common individuals between the methylation and gene expression dataset
 #' @examples com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 #'
 #' @examples #Use the function to get PC score matrix and significantly associated PCs.
-#' @examples pc.gene = findPCs(as.data.frame(gene), 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
+#' @examples pc.gene = findPCs(as.data.frame(gene), 3, 1, com.ind, 1)
 #'
 #' @examples #The PC matrix
 #' @examples dim (pc.gene[[1]])
@@ -54,14 +52,16 @@
 #' @import usethis
 
 
-findPCs <- function(data, startCol=3, GeneNameCol=1, type.ind, com.ind, type, bsize){
-
+#findPCs <- function(data, startCol, GeneNameCol, type.ind, com.ind, type, bsize){
+findPCsGeneral <- function(data, startCol=3, GeneNameCol=1, com.ind, bsize){
+    
   #finding common individuals between the 3 datasets and pos & neg ER individuals
-  com.ind.type <- intersect(unlist(type.ind), com.ind)
+#  com.ind.type <- intersect(unlist(type.ind), com.ind)
 
   #find the column number of the individuals
-  ind.col.data.type = match(com.ind.type, colnames(data))
-
+#  ind.col.data.type = match(com.ind.type, colnames(data))
+  ind.col.data.type = match(com.ind, colnames(data))
+  
   #only save numeric values
   new.data.numeric <- t(data[,ind.col.data.type])
 
