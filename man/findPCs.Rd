@@ -2,7 +2,8 @@
 % Please edit documentation in R/findPCs.R
 \name{findPCs}
 \alias{findPCs}
-\title{A function to calculate Principal Components (PCs) and significantly associated PCs with the data.}
+\title{A function to derive Principal Components (PCs)
+and identify significantly associated PCs with the input variables containing subtypes.}
 \usage{
 findPCs(data, startCol = 3, GeneNameCol = 1, type.ind, com.ind, type, bsize)
 }
@@ -46,7 +47,10 @@ new.data.no.var
 }\if{html}{\out{</div>}}
 }
 \description{
-This function uses Principal Component Analysis which can be used to analyze the high dimensional data while retaining the information that is important in the data. The PC score matrix is the coefficients of the linear combination of the initial variables that form the Principle Components and we find the PCs that are highly associated with the data.
+This function performs principal component (PC) analysis on the input data
+and identifies scores that are significantly associated with the variables in the input.
+This function is specifically designed for the breast cancer cohort that have two subtypes (ER+ and ER-).
+For the more general case where there are no subtypes, use \code{\link[=findPCsGeneral]{findPCsGeneral()}}.
 }
 \examples{
 #load the datasets

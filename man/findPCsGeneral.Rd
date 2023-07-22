@@ -2,7 +2,8 @@
 % Please edit documentation in R/findPCsGeneral.R
 \name{findPCsGeneral}
 \alias{findPCsGeneral}
-\title{A function to derive Principal Components (PCs) and identify significantly associated PCs with the data.}
+\title{A general function to derive Principal Components (PCs)
+and identify significantly associated PCs with the data.}
 \usage{
 findPCsGeneral(data, startCol = 3, GeneNameCol = 1, com.ind, bsize)
 }
@@ -46,7 +47,8 @@ new.data.no.var
 }\if{html}{\out{</div>}}
 }
 \description{
-This function uses Principal Component Analysis which can be used to analyze the high dimensional data while retaining the information that is important in the data. The PC score matrix is the coefficients of the linear combination of the initial variables that form the Principle Components and we find the PCs that are highly associated with the data.
+This function performs principal component (PC) analysis on the input data
+and identifies scores that are significantly associated with the variables in the input.
 }
 \examples{
 #load the datasets
@@ -57,7 +59,7 @@ data(meth)
 com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 
 #Use the function to get PC score matrix and significantly associated PCs.
-pc.gene = findPCs(as.data.frame(gene), 3, 1, com.ind, 1)
+pc.gene = findPCsGeneral(as.data.frame(gene), 3, 1, com.ind, 1)
 
 #The PC matrix
 dim (pc.gene[[1]])
