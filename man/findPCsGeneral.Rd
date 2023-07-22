@@ -3,7 +3,7 @@
 \name{findPCsGeneral}
 \alias{findPCsGeneral}
 \title{A general function to derive Principal Components (PCs)
-and identify significantly associated PCs with the data.}
+and identify significantly associated PCs with the input variables.}
 \usage{
 findPCsGeneral(data, startCol = 3, GeneNameCol = 1, com.ind, bsize)
 }

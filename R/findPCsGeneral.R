@@ -1,5 +1,5 @@
 #' A general function to derive Principal Components (PCs) 
-#' and identify significantly associated PCs with the data.
+#' and identify significantly associated PCs with the input variables.
 #'
 #' This function performs principal component (PC) analysis on the input data
 #' and identifies scores that are significantly associated with the variables in the input. 
