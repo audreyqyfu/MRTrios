@@ -10,7 +10,7 @@
 #' @param pc.gene PC score matrix for the gene expression data
 #' @param meth.sig.asso.pcs A list of significantly associated PCs with the methylation data for each trio
 #' @param gene.sig.asso.pcs A list of significantly associated PCs with the gene expression data for each trio
-#' @param clinical A breast cancer type (positive or negative ER) data with a individual/patient ID column, their age, and race
+#' @param clinical Clinical data with at least three columns: ID, age, and race
 #' @param meth.table A indices table to track the changes made to the input methylation data while generating the PCs
 #' @param gene.table A indices table to track the changes made to the input gene expression data while generating the PCs
 #' @param age.col The column where the age is located in the clinical data
@@ -66,6 +66,9 @@
 #' @seealso [infer.trio()] used to infer the causal models
 #'
 #' @examples #Find common individuals between the methylation and gene expression dataset
+#' @examples data (cna)
+#' @examples data (meth)
+#' @examples data (gene)
 #' @examples com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 #'
 #' @examples #use the function to match trios using gene name and entrez ID
@@ -102,7 +105,7 @@
 #'
 #' @examples #Use the function to perform the MRGN inference with confounding variables
 #' @examples #The PC (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) data used here are from the whole genome data.
-#' @examples final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, 2, 3, 5, 3)
+#' @examples final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nStartMeth=5, nStartGene3)
 #' @examples final.result
 
 
