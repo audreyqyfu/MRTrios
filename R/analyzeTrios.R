@@ -116,8 +116,8 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
   rows.clinical <- match(com.ind, unlist(clinical[,1]))
 
   #extract the age and race for those individuals
-  age <- clinical.pos[rows.clinical,age.col]
-  race <- clinical.pos[rows.clinical,race.col]
+  age <- clinical[rows.clinical,age.col]
+  race <- clinical[rows.clinical,race.col]
 
   #find the rows for the common individuals in the resp datasets
   ind.col.cna <- match(com.ind, colnames(cna))
