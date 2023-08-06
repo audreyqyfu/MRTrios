@@ -1,19 +1,20 @@
-#' A function to track the indices of data matrix
+#' A function tracking index changes in data matrix after data cleaning
 #'
-#' The data goes through muliple changes before it is used to calculate the PC scores and significantly associated PCs so we keep track of the change through indices in this data matrix.
+#' After finding the individuals of interest in data, retain rows (probes or genes) of data that have less than three NAs.  Output the index of the row before and after this processing.
 #'
-#' @param data A data matrix; probes or genes in rows, individuals in columns
-#' @param startCol The column where numeric values begin in the data
-#' @param GeneNameCol The column where the gene names are located
-#' @param type.ind A vector of positive or negative ER individuals ID
-#' @param com.ind A vector of common individuals between the datasets you want to find PCs for
-#' @param type A string of individual type ("ER pos" or "ER neg")
+#' @param data A data matrix with probes or genes in rows and individuals in columns.
+#' @param startCol The column where numeric values begin in the data.
+#' @param GeneNameCol The column where the gene names are located.
+#' @param type.ind A vector of positive or negative ER individuals ID.  If there are no subtypes, use the same argument for 'com.ind' here.
+#' @param com.ind A vector of common individuals shared across the datasets for which principal component analyses are performed.
 #'
 #' @return A data matrix with 2 columns; Column 1 is indices in the input data, Column 2 is the indices in data after removing columns with no variance
 #'
 #' @export
 #'
 #' @examples #load the datasets
+#' @examples data(gene)
+#' @examples data(meth)
 #' @examples data(clinical.neg)
 #' @examples data(clinical.pos)
 #'
@@ -21,12 +22,14 @@
 #' @examples com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 #'
 #' @examples #Use the function to get the indices data matrix
-#' @examples gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind, "Pos")
+#' @examples gene.table.pos = findIndex(data = gene, startCol = 3, GeneNameCol = 1, type.ind = clinical.pos[,1], com.ind = com.ind)
 #'
 
-findIndex <- function(data, startCol, GeneNameCol, type.ind, com.ind, type){
+findIndex <- function(data, startCol, GeneNameCol, type.ind, com.ind){
 
-  #finding common individuals between the 3 datasets and pos & neg ER individuals
+  #for breast cancer consisting of ER+ and ER- subtypes,
+  #find common individuals between the individuals specified in type.ind
+  #and the individuals shared across the genomic datasets
   com.ind.type <- intersect(unlist(type.ind), com.ind)
 
   #find the column number of the individuals

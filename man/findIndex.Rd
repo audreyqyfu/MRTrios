@@ -2,31 +2,31 @@
 % Please edit documentation in R/findIndex.R
 \name{findIndex}
 \alias{findIndex}
-\title{A function to track the indices of data matrix}
+\title{A function tracking index changes in data matrix after data cleaning}
 \usage{
-findIndex(data, startCol, GeneNameCol, type.ind, com.ind, type)
+findIndex(data, startCol, GeneNameCol, type.ind, com.ind)
 }
 \arguments{
-\item{data}{A data matrix; probes or genes in rows, individuals in columns}
+\item{data}{A data matrix with probes or genes in rows and individuals in columns.}
 
-\item{startCol}{The column where numeric values begin in the data}
+\item{startCol}{The column where numeric values begin in the data.}
 
-\item{GeneNameCol}{The column where the gene names are located}
+\item{GeneNameCol}{The column where the gene names are located.}
 
-\item{type.ind}{A vector of positive or negative ER individuals ID}
+\item{type.ind}{A vector of positive or negative ER individuals ID.  If there are no subtypes, use the same argument for 'com.ind' here.}
 
-\item{com.ind}{A vector of common individuals between the datasets you want to find PCs for}
-
-\item{type}{A string of individual type ("ER pos" or "ER neg")}
+\item{com.ind}{A vector of common individuals shared across the datasets for which principal component analyses are performed.}
 }
 \value{
 A data matrix with 2 columns; Column 1 is indices in the input data, Column 2 is the indices in data after removing columns with no variance
 }
 \description{
-The data goes through muliple changes before it is used to calculate the PC scores and significantly associated PCs so we keep track of the change through indices in this data matrix.
+After finding the individuals of interest in data, retain rows (probes or genes) of data that have less than three NAs.  Output the index of the row before and after this processing.
 }
 \examples{
 #load the datasets
+data(gene)
+data(meth)
 data(clinical.neg)
 data(clinical.pos)
 
@@ -34,6 +34,6 @@ data(clinical.pos)
 com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 
 #Use the function to get the indices data matrix
-gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind, "Pos")
+gene.table.pos = findIndex(data = gene, startCol = 3, GeneNameCol = 1, type.ind = clinical.pos[,1], com.ind = com.ind)
 
 }

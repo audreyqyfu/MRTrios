@@ -39,7 +39,7 @@ analyzeTrios(
 
 \item{gene.sig.asso.pcs}{A list of significantly associated PCs with the gene expression data for each trio}
 
-\item{clinical}{A breast cancer type (positive or negative ER) data with a individual/patient ID column, their age, and race}
+\item{clinical}{Clinical data with at least three columns: ID, age, and race}
 
 \item{meth.table}{A indices table to track the changes made to the input methylation data while generating the PCs}
 
@@ -131,6 +131,9 @@ This function uses the trio data matrix with the confounding variables (Principa
 }
 \examples{
 #Find common individuals between the methylation and gene expression dataset
+data (cna)
+data (meth)
+data (gene)
 com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 
 #use the function to match trios using gene name and entrez ID
@@ -167,7 +170,7 @@ meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind, "Pos")
 
 #Use the function to perform the MRGN inference with confounding variables
 #The PC (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) data used here are from the whole genome data.
-final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, 2, 3, 5, 3)
+final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nStartMeth=5, nStartGene3)
 final.result
 }
 \seealso{
