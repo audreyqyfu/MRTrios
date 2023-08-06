@@ -130,16 +130,16 @@ Inferred.Model
 This function uses the trio data matrix with the confounding variables (Principal components and age and race of individuals). It returns the results of the coefficient and marginal test with the inferred model.
 }
 \examples{
-#Find common individuals between the methylation and gene expression dataset
+#Find common individuals between the methylation and gene expression datasets
 data (cna)
 data (meth)
 data (gene)
 com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 
-#use the function to match trios using gene name and entrez ID
+#match trios using gene name and entrez ID
 trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
 
-#use the function to match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
+#match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
 result = addDupsCNA(trios.df, cna)
 
 #initial trios data with entries in the CNA column filled in after matching
@@ -148,16 +148,16 @@ result[[1]]
 #additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
 result[[2]]
 
-#use the function to match additional entries in the Gene Expression column of trios data using the package "org.Hs.eg.db"
+#use the function to match additional entries in the gene expression column of trios data using the package "org.Hs.eg.db"
 #It also merges the intial and additional trios data (res[[1]] and res[[2]]) and returns one data matrix
 final.trios.df = addDupsGENE(result[[1]], result[[2]], gene)
 final.trios.df
 
-#Use the function to get the indices data matrix
-gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind, "Pos")
-meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind, "Pos")
+#generate the indices tables
+gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind)
+meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind)
 
-#Use the function to get PC score matrix and significantly associated PCs in both methylation and gene expression data for positive ER individuals.
+#generate the PC score matrix and significantly associated PCs in both methylation and gene expression data for ER+ individuals.
 #The number of methylation probes in the methylation dataset (included with the package) is small in this example. To generate realistic result, we need whole genome data for this function as well as the findPCs() function.
 \dontrun{ pc.meth = findPCs(meth, 5, 2, clinical.pos[,1], com.ind, "Pos", 1)
                     pc.gene = findPCs(gene, 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
@@ -168,9 +168,9 @@ meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind, "Pos")
                     final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, 2, 3, 5, 3)
                     final.result}
 
-#Use the function to perform the MRGN inference with confounding variables
-#The PC (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) data used here are from the whole genome data.
-final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nStartMeth=5, nStartGene3)
+#perform the MRGN trio inference with confounding variables
+#The PC data used here (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) are generated from the whole genome data.
+final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nStartMeth=5, nStartGene=3)
 final.result
 }
 \seealso{
