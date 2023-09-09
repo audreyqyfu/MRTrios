@@ -64,15 +64,15 @@ trios <- function (gene.name, meth, cna, gene, meth.genes, na.meth, na.gene, na.
   #assign row numbers for the list data
   #so the genes in the same list will have the same row number
   g1 <- rep(seq_along(meth.genes), sapply(meth.genes, length))
-  g1[1:5]
+  #g1[1:5]
 
   #match the gene name and find the row in methylation data
   meth.row <- g1[which(unlist(meth.genes) == gene.name)]
-  meth.row
+  #meth.row
 
   #match the gene name and find the row in CNA data
   cna.row <- which(unlist(cna$Hugo_Symbol) == gene.name)
-  cna.row
+  #cna.row
 
   #if no match found assign NA
   if(length(cna.row) == 0){
@@ -95,15 +95,17 @@ trios <- function (gene.name, meth, cna, gene, meth.genes, na.meth, na.gene, na.
   #we loop through each row and make sure it does not have NA for every individual
   for (i in 1:length(meth.row)){
     #print(i)
-
-    #check for NA rows
-    if((as.integer(meth.row[i]) %in% as.integer(na.meth)) == FALSE & (as.integer(gene.row) %in% as.integer(na.gene)) == FALSE & (as.integer(cna.row) %in% as.integer(na.cna)) == FALSE) {
-
-      #print(i)
-      #we save the gene name, i (which is the row number in meth data)
-      #and row numbers in cna & gene data
-      results <- rbind(results,as.data.frame(cbind(gene.name, as.numeric(meth.row[i]), as.numeric(cna.row), as.numeric(gene.row))))
-
+    for (j in 1:length (gene.row)) {
+      for (k in 1:length (cna.row)) {
+        #check for NA rows
+        if((as.integer(meth.row[i]) %in% as.integer(na.meth)) == FALSE & (as.integer(gene.row[j]) %in% as.integer(na.gene)) == FALSE & (as.integer(cna.row[k]) %in% as.integer(na.cna)) == FALSE) {
+          
+          #print(i)
+          #we save the gene name, i (which is the row number in meth data)
+          #and row numbers in cna & gene data
+          results <- rbind(results,as.data.frame(cbind(gene.name, as.numeric(meth.row[i]), as.numeric(cna.row[k]), as.numeric(gene.row[j]))))
+        }
+      }
     }
 
 
