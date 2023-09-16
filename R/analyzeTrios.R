@@ -18,7 +18,7 @@
 #' @param nObs An integer specifying the minimum number of complete observations (no missing values) in a trio
 #' @param nPCs An integer specifying the cutoff of the principal components to be selected.  For example, if nPCs=50, then the 50th PC and later ones in the score matrix are discarded.  Note that this is not the total number of PCs selected.
 #' @param writeToFile TRUE if writing the trio analysis result to an external file while the function runs.  FALSE (default) otherwise.  If TRUE, need to specify the external file name.
-#' @param file Name the file to write output to. 
+#' @param file Name of the external file to write output to. 
 #'
 #' @return a dataframe of dimension 1 x 16 with the following columns:
 #' @return index

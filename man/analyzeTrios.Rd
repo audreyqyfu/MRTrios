@@ -57,7 +57,7 @@ analyzeTrios(
 
 \item{writeToFile}{TRUE if writing the trio analysis result to an external file while the function runs.  FALSE (default) otherwise.  If TRUE, need to specify the external file name.}
 
-\item{file}{Name the file to write output to.}
+\item{file}{Name of the external file to write output to.}
 }
 \value{
 a dataframe of dimension 1 x 16 with the following columns:
