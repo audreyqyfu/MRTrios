@@ -18,8 +18,10 @@ analyzeTrios(
   gene.table,
   age.col,
   race.col,
-  nStartMeth,
-  nStartGene
+  nObs = 30,
+  nPCs = 50,
+  writeToFile = FALSE,
+  file
 )
 }
 \arguments{
@@ -49,61 +51,70 @@ analyzeTrios(
 
 \item{race.col}{The column where the race is located in the clinical data}
 
-\item{nStartMeth}{The column where numeric values begin in methylation data}
+\item{nObs}{An integer specifying the minimum number of complete observations (no missing values) in a trio}
 
-\item{nStartGene}{The column where numeric values begin in gene expression data}
+\item{nPCs}{An integer specifying the cutoff of the principal components to be selected.  For example, if nPCs=50, then the 50th PC and later ones in the score matrix are discarded.  Note that this is not the total number of PCs selected.}
+
+\item{writeToFile}{TRUE if writing the trio analysis result to an external file while the function runs.  FALSE (default) otherwise.  If TRUE, need to specify the external file name.}
+
+\item{file}{Name the file to write output to.}
 }
 \value{
-a dataframe of dimension 1 x 14 with the following columns:
+a dataframe of dimension 1 x 16 with the following columns:
+
+index
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ index of the trio
+}\if{html}{\out{</div>}}
 
 b11
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the conditional test T1 ~ V | T2,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ a binary value. 1 if the conditional test T1 ~ V | \{T2,U\} rejects the null, and 0 otherwise.
 }\if{html}{\out{</div>}}
 
 b12
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the conditional test T1 ~ T2 | V,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the binary outcome for the conditional test T1 ~ T2 | \{V,U\}
 }\if{html}{\out{</div>}}
 
 b21
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the conditional test T2 ~ V | T1,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the binary outcome for the conditional test T2 ~ V | \{T1,U\}
 }\if{html}{\out{</div>}}
 
 b22
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the conditional test T2 ~ T1 | V,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the binary outcome for the conditional test T2 ~ T1 | \{V,U\}
 }\if{html}{\out{</div>}}
 
 V1:T1
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the marginal test between V1 and T1
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the binary outcome for the marginal test between V1 and T1
 }\if{html}{\out{</div>}}
 
 V1:T2
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the indicator 0,1 value for the marginal test between V1 and T2
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the binary outcome for the marginal test between V1 and T2
 }\if{html}{\out{</div>}}
 
 pb11
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T1 ~ V | T2,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T1 ~ V | \{T2,U\}
 }\if{html}{\out{</div>}}
 
 pb12
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T1 ~ T2 | V,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T1 ~ T2 | \{V,U\}
 }\if{html}{\out{</div>}}
 
 pb21
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T2 ~ V | T1,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T2 ~ V | \{T1,U\}
 }\if{html}{\out{</div>}}
 
 pb22
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T2 ~ T1 | V,U
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the p-value for the conditional test T2 ~ T1 | \{V,U\}
 }\if{html}{\out{</div>}}
 
 pV1:T1
@@ -124,6 +135,11 @@ Minor.freq
 Inferred.Model
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ a string indicating the inferred model type as returned by class.vec()
+}\if{html}{\out{</div>}}
+
+Total.PC.Count
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ the number of PCs included in the trio analysis.
 }\if{html}{\out{</div>}}
 }
 \description{
@@ -157,7 +173,19 @@ final.trios.df
 gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind)
 meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind)
 
-#generate the PC score matrix and significantly associated PCs in both methylation and gene expression data for ER+ individuals.
+#perform the MRGN trio inference with confounding variables
+#The PC data used here (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) are pre-generated from the whole genome data.
+#See code at the end for an example of generating PC score matrices and associated PCs.
+
+final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nObs = 30, nPCs = 50)
+final.result
+
+#You can also write the results to an external file while the function runs
+\dontrun{ final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")}
+ 
+
+#When the PC score matrix and significantly associated PCs are not available,
+#need to generate them first as follows. 
 #The number of methylation probes in the methylation dataset (included with the package) is small in this example. To generate realistic result, we need whole genome data for this function as well as the findPCs() function.
 \dontrun{ pc.meth = findPCs(meth, 5, 2, clinical.pos[,1], com.ind, "Pos", 1)
                     pc.gene = findPCs(gene, 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
@@ -165,13 +193,9 @@ meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind)
                     pc.gene.pos.tmp = pc.gene.pos[[1]]
                     sig.pcs.meth.tmp = pc.meth.pos[[2]]$sig.asso.covs
                     sig.pcs.gene.tmp = pc.gene.pos[[2]]$sig.asso.covs
-                    final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, 2, 3, 5, 3)
+                    final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
                     final.result}
 
-#perform the MRGN trio inference with confounding variables
-#The PC data used here (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) are generated from the whole genome data.
-final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nStartMeth=5, nStartGene=3)
-final.result
 }
 \seealso{
 \code{\link[=infer.trio]{infer.trio()}} used to infer the causal models
