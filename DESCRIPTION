@@ -5,14 +5,14 @@ Authors@R:
     c(person("Bandita", "Karki", , "kark6289@vandals.uidaho.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID")), person("Audrey", "Fu", ,
                     "audreyf@uidaho.edu", role = c("aut")))
+Maintainer: Audrey Q. Fu <audreyqyfu@gmail.com>
 Description: This package forms trios between biological processes like methylation, gene expression, and copy number alteration based on gene names and their Entrez IDs. Then it applies mendelian randomization
              to the trios and infer a genetic regulatory network.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: `use_gpl3_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.3)
 LazyData: true
 Imports: MRGN, org.Hs.eg.db, splitstackshape
