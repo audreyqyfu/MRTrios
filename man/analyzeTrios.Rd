@@ -181,12 +181,14 @@ final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, 
 final.result
 
 #You can also write the results to an external file while the function runs
+
 \dontrun{ final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")}
  
 
 #When the PC score matrix and significantly associated PCs are not available,
 #need to generate them first as follows. 
 #The number of methylation probes in the methylation dataset (included with the package) is small in this example. To generate realistic result, we need whole genome data for this function as well as the findPCs() function.
+
 \dontrun{ pc.meth = findPCs(meth, 5, 2, clinical.pos[,1], com.ind, "Pos", 1)
                     pc.gene = findPCs(gene, 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
                     pc.meth.pos.tmp = pc.meth.pos[[1]]
