@@ -7,13 +7,14 @@
 #' @return A vector of column numbers that either have 0 variance or 2 or less than 2 non-NA values
 #' @export
 #'
-#' @examples #Since the methylation data has individuals in columns and probes in rows, we take the transpose of the data
-#' @examples data = t(meth[,5:ncol(meth)])
+#' @examples 
+#' # Transpose the data since individuals are in columns
+#' data = t(meth[,5:ncol(meth)])
 #'
-#' @examples #The function takes in the numeric values in the data and returns column numbers
-#' @examples col = noVar(data)
-#' @examples col
-#' @examples data[,col]
+#' # Returns column numbers
+#' col = noVar(data)
+#' col
+#' data[,col]
 
 noVar <- function(data){
 

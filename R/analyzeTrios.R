@@ -109,13 +109,19 @@
 #' # are pre-generated from the whole genome data.
 #' # See code at the end for an example of generating PC score matrices and associated PCs.
 #' 
-#' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nObs = 30, nPCs = 50)
+#' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], 
+#'       pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, 
+#'       clinical.pos, meth.table.pos, gene.table.pos, 
+#'       age.col=2, race.col=3, nObs = 30, nPCs = 50)
 #' final.result
 #' 
 #' # You can also write the results to an external file while the function runs
 #' 
 #' \dontrun{ 
-#' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")
+#' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], 
+#'         pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, 
+#'         clinical.pos, meth.table.pos, gene.table.pos, 
+#'         age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")
 #' }
 #'  
 #' 
@@ -133,8 +139,11 @@
 #' pc.gene.pos.tmp = pc.gene.pos[[1]]
 #' sig.pcs.meth.tmp = pc.meth.pos[[2]]$sig.asso.covs
 #' sig.pcs.gene.tmp = pc.gene.pos[[2]]$sig.asso.covs
-#' final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
-#'                final.result
+#' final.result = analyzeTrios(meth, gene, cna, final.trios.df, 
+#'         pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, 
+#'         clinical.pos, meth.table.pos, gene.table.pos, 
+#'         age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
+#' final.result
 #' }
 #'
 #' @import MRGN

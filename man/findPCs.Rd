@@ -67,7 +67,7 @@ pc.gene = findPCs(as.data.frame(gene), 3, 1, clinical.pos[,1], com.ind, "Pos", 1
 
 #The PC matrix
 dim (pc.gene[[1]])
-pc.gene[[1]]
+pc.gene[[1]][1:5, 1:5]
 
 #List of significantly associated PCs
 pc.gene[[2]]$sig.asso.covs

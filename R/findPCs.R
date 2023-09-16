@@ -49,7 +49,7 @@
 #'
 #' @examples #The PC matrix
 #' @examples dim (pc.gene[[1]])
-#' @examples pc.gene[[1]]
+#' @examples pc.gene[[1]][1:5, 1:5]
 #'
 #' @examples #List of significantly associated PCs
 #' @examples pc.gene[[2]]$sig.asso.covs

@@ -39,8 +39,10 @@ na.cna = removeNA(cna, 3)
 result = trios("C13orf15", meth, cna, gene, meth.genes, na.meth, na.gene, na.cna)
 result
 
-#Extract which row has a missing value
-#Here we have one row in the data so it returns 1 but in case of larger data it will return a vector of row numbers
+# Extract rows that have missing values
+# Since we have one only row in the data here,
+# it returns 1, but in case of larger data 
+# it will return a vector of row numbers
 row = as.integer(which(is.na(result[,3] == TRUE)))
 
 #Now we use the function with the required arguments

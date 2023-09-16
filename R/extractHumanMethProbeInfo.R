@@ -62,7 +62,9 @@
 #' @examples #Run postFilter() on results from analyzeTrios() to get an object 'df'
 #' 
 #' \dontrun{
-#' probe_info_data = extractHumanMethProbeInfo(df, "M1.1", meth, gene, cna, final.trios.df, humanmeth, biomart, 5, 3, 3, clinical.pos)
+#' probe_info_data = extractHumanMethProbeInfo(df, "M1.1", meth, gene, cna, 
+#'         final.trios.df, humanmeth, biomart, 
+#'         nstartMeth=5, nstartGene=3, nstartCNA=3, type.ind=clinical.pos)
 #' }
 #'
 

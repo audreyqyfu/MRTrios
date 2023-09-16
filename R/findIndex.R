@@ -21,8 +21,9 @@
 #' @examples #Find common individuals between the methylation and gene expression dataset
 #' @examples com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 #'
-#' @examples #Use the function to get the indices data matrix
-#' @examples gene.table.pos = findIndex(data = gene, startCol = 3, GeneNameCol = 1, type.ind = clinical.pos[,1], com.ind = com.ind)
+#' # Use the function to get the indices data matrix
+#' gene.table.pos = findIndex(data = gene, startCol = 3, GeneNameCol = 1, 
+#'         type.ind = clinical.pos[,1], com.ind = com.ind)
 #'
 
 findIndex <- function(data, startCol, GeneNameCol, type.ind, com.ind){

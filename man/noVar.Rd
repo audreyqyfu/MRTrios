@@ -16,10 +16,10 @@ A vector of column numbers that either have 0 variance or 2 or less than 2 non-N
 Data with no variance might be easy to predict but has no uncertainity so we do not include those columns in our analysis.
 }
 \examples{
-#Since the methylation data has individuals in columns and probes in rows, we take the transpose of the data
+# Transpose the data since individuals are in columns
 data = t(meth[,5:ncol(meth)])
 
-#The function takes in the numeric values in the data and returns column numbers
+# Returns column numbers
 col = noVar(data)
 col
 data[,col]

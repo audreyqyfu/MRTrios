@@ -30,9 +30,11 @@
 #' @examples result = trios("C13orf15", meth, cna, gene, meth.genes, na.meth, na.gene, na.cna)
 #' @examples result
 #'
-#' @examples #Extract which row has a missing value
-#' @examples #Here we have one row in the data so it returns 1 but in case of larger data it will return a vector of row numbers
-#' @examples row = as.integer(which(is.na(result[,3] == TRUE)))
+#' # Extract rows that have missing values
+#' # Since we have one only row in the data here,
+#' # it returns 1, but in case of larger data 
+#' # it will return a vector of row numbers
+#' row = as.integer(which(is.na(result[,3] == TRUE)))
 #'
 #' @examples #Now we use the function with the required arguments
 #' @examples val = entrezCNA(row, result, cna, gene)

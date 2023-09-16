@@ -70,15 +70,17 @@ na.cna = removeNA(cna, 3)
 result = trios("C3orf35", meth, cna, gene, meth.genes, na.meth, na.gene, na.cna)
 result
 
-#Example 2
+# Example 2
 
-#The output for the code below is supposed to have NA in the gene.row column because a match has not been found in the corresponding dataset
+# 'result' below should have NA in the gene.row column 
+# because no match is found.
 result = trios("OR4P4", meth, cna, gene, meth.genes, na.meth, na.gene, na.cna)
 result
 
-#Example 3
+# Example 3
 
-#The output for the code below is supposed to be NULL since the gene we are looking for has all NA values in the methylation dataset
+# 'result' below should to be NULL 
+# since this gene has all NA values in the methylation dataset
 result = trios("RBL2", meth, cna, gene, meth.genes, na.meth, na.gene, na.cna)
 result
 
