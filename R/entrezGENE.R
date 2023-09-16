@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-#' @seealso [trios()] to get the input data (trios data) used in this function
+#' @seealso [trios] to get the input data (trios data) used in this function
 #'
 #' @examples #load the example datasets
 #' @examples data(meth)

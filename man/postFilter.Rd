@@ -7,23 +7,19 @@
 postFilter(res)
 }
 \arguments{
-\item{res}{A dataframe of dimension 1 x 14 (generated from analyzeTrios()):}
+\item{res}{A data frame of 16 columns; the object generated from \link{analyzeTrios}:}
 }
 \value{
-The input dataframe with the updated inferred models column
+The input data frame with the updated inferred models column
 }
 \description{
 Since MRGN only applies conditional test with the inferred models, it does not account for the marginal test that could influence the results. So, we use this function to update the inferred models.
 }
 \examples{
 #Use the function to perform the MRGN inference with confounding variables
-final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos[[1]], pc.gene.pos[[1]], pc.meth.pos[[2]]$sig.asso.covs, pc.gene.pos[[2]]$sig.asso.covs, clinical.pos, pc.meth.pos[[3]], pc.gene.pos[[3]], 2, 3, 5, 3)
-final.result
 
+\dontrun{
 df = postFilter(final.result)
-df
-
 }
-\seealso{
-\code{\link[=analyzeTrios]{analyzeTrios()}} to generate the input data (causal inference models data) for this function
+
 }

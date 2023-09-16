@@ -3,19 +3,16 @@
 #'
 #' Since MRGN only applies conditional test with the inferred models, it does not account for the marginal test that could influence the results. So, we use this function to update the inferred models.
 #'
-#' @param res A dataframe of dimension 1 x 14 (generated from analyzeTrios()):
+#' @param res A data frame of 16 columns; the object generated from [analyzeTrios]:
 #'
-#' @return The input dataframe with the updated inferred models column
+#' @return The input data frame with the updated inferred models column
 #' @export
 #'
-#' @seealso [analyzeTrios()] to generate the input data (causal inference models data) for this function
-#'
 #' @examples #Use the function to perform the MRGN inference with confounding variables
-#' @examples final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos[[1]], pc.gene.pos[[1]], pc.meth.pos[[2]]$sig.asso.covs, pc.gene.pos[[2]]$sig.asso.covs, clinical.pos, pc.meth.pos[[3]], pc.gene.pos[[3]], 2, 3, 5, 3)
-#' @examples final.result
-#'
-#' @examples df = postFilter(final.result)
-#' @examples df
+#' 
+#' \dontrun{
+#' df = postFilter(final.result)
+#' }
 #'
 
 

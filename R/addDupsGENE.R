@@ -4,7 +4,7 @@
 #'
 #' @param final A trios data matrix with 4 columns; gene name, methylation row, cna row, gene expression row
 #' @param dup.final A data matrix with trios for genes that are matched with multiple entrez IDs; gene name, methylation row, cna row, gene expression row
-#' @param cna Gene Expression dataset; genes in rows, individuals in columns
+#' @param gene Gene Expression dataset; genes in rows, individuals in columns
 #'
 #' @return a list with two data matrix
 #' @return final.res
@@ -12,25 +12,34 @@
 #'
 #' @export
 #'
-#' @seealso [findDups()] to find duplicated rows
+#' @seealso [findDups] to find duplicated rows
 #'
-#' @examples #use the function to match trios using gene name and entrez ID
-#' @examples trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
-#' @examples trios.df
+#' @examples 
+#' # Match trios using gene name and entrez ID
+#' trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
+#' trios.df
 #'
-#' @examples #use the function to match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
-#' @examples result = addDupsCNA(trios.df, cna)
+#' @examples 
+#' # Match additional entries in the CNA column of trios data 
+#' # using the package "org.Hs.eg.db"
+#' result = addDupsCNA(trios.df, cna)
 #'
-#' @examples #initial trios data with entries in the CNA column filled in after matching
-#' @examples result[[1]]
+#' @examples 
+#' # Initial trios data with entries in the CNA column filled in after matching
+#' result[[1]]
 #'
-#' @examples #additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
-#' @examples result[[2]]
+#' @examples 
+#' # Additional trios data for genes that were matched 
+#' # and had multiple entrez id matches in the CNA data
+#' result[[2]]
 #'
-#' @examples #use the function to match additional entries in the Gene Expression column of trios data using the package "org.Hs.eg.db"
-#' @examples #It also merges the intial and additional trios data (res[[1]] and res[[2]]) and returns one data matrix
-#' @examples final.trios.df = addDupsGENE(result[[1]], result[[2]], gene)
-#' @examples final.trios.df
+#' @examples 
+#' # Match additional entries in the gene expression column of trios data 
+#' # using the package "org.Hs.eg.db".
+#' # It also merges the initial and additional trios data (res[[1]] and res[[2]]) 
+#' # and returns one data matrix.
+#' final.trios.df = addDupsGENE(result[[1]], result[[2]], gene)
+#' final.trios.df
 #'
 
 

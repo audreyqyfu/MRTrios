@@ -52,5 +52,9 @@ trios.df
 
 }
 \seealso{
-\code{\link[=findDups]{findDups()}} to find duplicated rows; \code{\link[=removeNA]{removeNA()}} to find rows with all NA for numeric values; \code{\link[=trios]{trios()}} to form trio for each gene using gene names, \code{\link[=entrezCNA]{entrezCNA()}} to match trios in CNA data with Gene Expression data based on entrez IDs, \code{\link[=entrezGENE]{entrezGENE()}} to match trios in Gene Expression data with CNA data based on entrez IDs
+\link{findDups} to find duplicated rows;
+\link{removeNA} to find rows with all NA for numeric values;
+\link{trios} to form trio for each gene using gene names;
+\link{entrezCNA} to match trios in CNA data with Gene Expression data based on entrez IDs;
+\link{entrezGENE} to match trios in Gene Expression data with CNA data based on entrez IDs
 }

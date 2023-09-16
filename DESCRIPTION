@@ -2,13 +2,10 @@ Package: MRTrios
 Title: Mendelian Randomization analysis for genomic trios 
 Version: 0.0.3
 Authors@R: 
-    c(person("Bandita", "Karki", , "kark6289@vandals.uidaho.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID")), person("Audrey", "Fu", ,
-                    "audreyf@uidaho.edu", role = c("aut")))
-Maintainer: Audrey Q. Fu <audreyqyfu@gmail.com>
-Description: This package forms trios between biological processes like methylation, gene expression, and copy number alteration based on gene names and their Entrez IDs. Then it applies mendelian randomization
-             to the trios and infer a genetic regulatory network.
-License: `use_gpl3_license()`
+    c(person("Bandita", "Karki", email = "kark6289@vandals.uidaho.edu", role = c("aut"), comment = c(ORCID = "YOUR-ORCID-ID")), 
+      person("Audrey", "Fu", , email = "audreyqyfu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3479-5652")))
+Description: Genomic trios each consisting of copy number alteration (CNA), methylation, and gene expression are formed based on gene names and their Entrez IDs, using the TCGA data. It then performs causal network inference with mendelian randomization to each trio, including confounders, and infers a regulatory model for each trio.
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

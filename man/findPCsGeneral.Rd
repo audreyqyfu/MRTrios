@@ -17,10 +17,6 @@ findPCsGeneral(data, startCol = 3, GeneNameCol = 1, com.ind, bsize)
 \item{com.ind}{A vector of common individuals between the datasets you want to find PCs for}
 
 \item{bsize}{The number of columns of data to use in each block of correlation calculations}
-
-\item{type.ind}{A vector of positive or negative ER individuals ID}
-
-\item{type}{A string of individual type ("ER pos" or "ER neg")}
 }
 \value{
 A list of length 3:
@@ -70,7 +66,7 @@ pc.gene[[2]]$sig.asso.covs
 
 }
 \seealso{
-\code{\link[=prcomp]{prcomp()}} used to calculate the PC score matrix;
-\code{\link[=get.conf.matrix]{get.conf.matrix()}} used to identify PCs that are significantly associated with the input;
-\code{\link[=findPCs]{findPCs()}} used to derive and identify PCs for the breast cancer cohort with two subtypes (ER+ and ER-).
+\link{prcomp} used to calculate the PC score matrix;
+\link{get.conf.matrix} used to identify PCs that are significantly associated with the input;
+\link{findPCs} used to derive and identify PCs for the breast cancer cohort with two subtypes (ER+ and ER-).
 }

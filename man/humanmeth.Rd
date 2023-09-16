@@ -46,15 +46,9 @@
     \item{\code{DHS}}{DNase I Hypersensitivity Site}
   }
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
 \source{
  https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534
  https://knowledge.illumina.com/microarray/general/microarray-general-reference_material-list/000001567
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
 data(humanmeth)
@@ -63,7 +57,7 @@ data(humanmeth)
 \keyword{datasets}
 
 \seealso{
-\code{\link[=HumanMethProbeInfo]{HumanMethProbeInfo()}}
+\code{\link[=extractHumanMethProbeInfo]{extractHumanMethProbeInfo}}
 }
 
 

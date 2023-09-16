@@ -60,7 +60,7 @@ analyzeTrios(
 \item{file}{Name of the external file to write output to.}
 }
 \value{
-a dataframe of dimension 1 x 16 with the following columns:
+A data frame with 16 columns:
 
 index
 
@@ -146,59 +146,71 @@ Total.PC.Count
 This function uses the trio data matrix with the confounding variables (Principal components and age and race of individuals). It returns the results of the coefficient and marginal test with the inferred model.
 }
 \examples{
-#Find common individuals between the methylation and gene expression datasets
 data (cna)
 data (meth)
 data (gene)
+
+# Find common individuals between the methylation and gene expression datasets
 com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 
-#match trios using gene name and entrez ID
+# Match trios using gene name and entrez ID
 trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
 
-#match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
+# Match additional entries in the CNA column of trios data 
+# using the package "org.Hs.eg.db"
 result = addDupsCNA(trios.df, cna)
 
-#initial trios data with entries in the CNA column filled in after matching
+# Initial trios data with entries in the CNA column filled in after matching
 result[[1]]
 
-#additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
+# Additional trios data for genes that were matched 
+# and had multiple entrez id matches in the CNA data
 result[[2]]
 
-#use the function to match additional entries in the gene expression column of trios data using the package "org.Hs.eg.db"
-#It also merges the intial and additional trios data (res[[1]] and res[[2]]) and returns one data matrix
+# Match additional entries in the gene expression column of trios data 
+# using the package "org.Hs.eg.db"
+# It also merges the iintial and additional trios data (res[[1]] and res[[2]]) 
+# and returns one data matrix
 final.trios.df = addDupsGENE(result[[1]], result[[2]], gene)
 final.trios.df
 
-#generate the indices tables
+# Generate the indices tables
 gene.table.pos = findIndex(gene, 3, 1, clinical.pos[,1], com.ind)
 meth.table.pos = findIndex(meth, 3, 1, clinical.pos[,1], com.ind)
 
-#perform the MRGN trio inference with confounding variables
-#The PC data used here (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) are pre-generated from the whole genome data.
-#See code at the end for an example of generating PC score matrices and associated PCs.
+# Perform the MRGN trio inference with confounding variables
+# The PC score data used here (pc.meth.pos, pc.gene.pos, sig.pcs.meth, and sig.pcs.gene) 
+# are pre-generated from the whole genome data.
+# See code at the end for an example of generating PC score matrices and associated PCs.
 
 final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, nObs = 30, nPCs = 50)
 final.result
 
-#You can also write the results to an external file while the function runs
+# You can also write the results to an external file while the function runs
 
-\dontrun{ final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")}
+\dontrun{ 
+final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, clinical.pos, meth.table.pos, gene.table.pos, age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")
+}
  
 
-#When the PC score matrix and significantly associated PCs are not available,
-#need to generate them first as follows. 
-#The number of methylation probes in the methylation dataset (included with the package) is small in this example. To generate realistic result, we need whole genome data for this function as well as the findPCs() function.
+# When the PC score matrix and significantly associated PCs are not available,
+# need to generate them first as follows. 
+# The number of methylation probes in the methylation dataset (included with 
+# the package) is small in this example. To generate realistic result, we need 
+# whole genome data for this function as well as the findPCs() function.
 
-\dontrun{ pc.meth = findPCs(meth, 5, 2, clinical.pos[,1], com.ind, "Pos", 1)
-                    pc.gene = findPCs(gene, 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
-                    pc.meth.pos.tmp = pc.meth.pos[[1]]
-                    pc.gene.pos.tmp = pc.gene.pos[[1]]
-                    sig.pcs.meth.tmp = pc.meth.pos[[2]]$sig.asso.covs
-                    sig.pcs.gene.tmp = pc.gene.pos[[2]]$sig.asso.covs
-                    final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
-                    final.result}
+\dontrun{ 
+pc.meth = findPCs(meth, 5, 2, clinical.pos[,1], com.ind, "Pos", 1)
+pc.gene = findPCs(gene, 3, 1, clinical.pos[,1], com.ind, "Pos", 1)
+pc.meth.pos.tmp = pc.meth.pos[[1]]
+pc.gene.pos.tmp = pc.gene.pos[[1]]
+sig.pcs.meth.tmp = pc.meth.pos[[2]]$sig.asso.covs
+sig.pcs.gene.tmp = pc.gene.pos[[2]]$sig.asso.covs
+final.result = analyzeTrios(meth, gene, cna, final.trios.df, pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, clinical.pos, meth.table.pos, gene.table.pos, age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
+               final.result
+}
 
 }
 \seealso{
-\code{\link[=infer.trio]{infer.trio()}} used to infer the causal models
+\link{infer.trio} used to infer the causal models
 }

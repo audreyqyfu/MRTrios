@@ -11,7 +11,7 @@ addDupsGENE(final, dup.final, gene)
 
 \item{dup.final}{A data matrix with trios for genes that are matched with multiple entrez IDs; gene name, methylation row, cna row, gene expression row}
 
-\item{cna}{Gene Expression dataset; genes in rows, individuals in columns}
+\item{gene}{Gene Expression dataset; genes in rows, individuals in columns}
 }
 \value{
 a list with two data matrix
@@ -25,25 +25,29 @@ final.res
 After matching the trios based on gene names and entrez ID, we still have missing data in the trios data matrix so we match the genes with a package available with additional information on the gene.
 }
 \examples{
-#use the function to match trios using gene name and entrez ID
+# Match trios using gene name and entrez ID
 trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
 trios.df
 
-#use the function to match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
+# Match additional entries in the CNA column of trios data 
+# using the package "org.Hs.eg.db"
 result = addDupsCNA(trios.df, cna)
 
-#initial trios data with entries in the CNA column filled in after matching
+# Initial trios data with entries in the CNA column filled in after matching
 result[[1]]
 
-#additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
+# Additional trios data for genes that were matched 
+# and had multiple entrez id matches in the CNA data
 result[[2]]
 
-#use the function to match additional entries in the Gene Expression column of trios data using the package "org.Hs.eg.db"
-#It also merges the intial and additional trios data (res[[1]] and res[[2]]) and returns one data matrix
+# Match additional entries in the gene expression column of trios data 
+# using the package "org.Hs.eg.db".
+# It also merges the initial and additional trios data (res[[1]] and res[[2]]) 
+# and returns one data matrix.
 final.trios.df = addDupsGENE(result[[1]], result[[2]], gene)
 final.trios.df
 
 }
 \seealso{
-\code{\link[=findDups]{findDups()}} to find duplicated rows
+\link{findDups} to find duplicated rows
 }

@@ -58,15 +58,6 @@ List of 23
  $ : Named int [1:12] 1 2 3 4 6 7 9 11 13 14 ...
   ..- attr(*, "names")= chr [1:12] "V1" "V2" "V3" "V4" ...
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
 \examples{
 data(sig.pcs.meth)
 }

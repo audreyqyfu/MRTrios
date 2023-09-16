@@ -28,20 +28,21 @@ dup.final
 After matching the trios based on gene names and entrez ID, we still have missing data in the trios data matrix so we match the genes with a package available with additional information on the gene.
 }
 \examples{
-#use the function to match trios using gene name and entrez ID
+# Match trios using gene name and entrez ID
 trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
 trios.df
 
-#use the function match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
+# Match additional entries in the CNA column of trios data using package "org.Hs.eg.db"
 result = addDupsCNA(trios.df, cna)
 
-#initial trios data with entries in the CNA column filled in after matching
+# Initial trios data with entries in the CNA column filled in after matching
 result[[1]]
 
-#additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
+# Additional trios data for genes that were matched 
+# and had multiple entrez id matches in the CNA data
 result[[2]]
 
 }
 \seealso{
-\code{\link[=findDups]{findDups()}} to find duplicated rows
+\link{findDups} to find duplicated rows
 }

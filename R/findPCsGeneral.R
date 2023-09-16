@@ -8,9 +8,7 @@
 #' @param data A data matrix; probes or genes in rows, individuals in columns
 #' @param startCol The column where numeric values begin in the data
 #' @param GeneNameCol The column where the gene names are located
-#' @param type.ind A vector of positive or negative ER individuals ID
 #' @param com.ind A vector of common individuals between the datasets you want to find PCs for
-#' @param type A string of individual type ("ER pos" or "ER neg")
 #' @param bsize The number of columns of data to use in each block of correlation calculations
 #'
 #' @return A list of length 3:
@@ -30,9 +28,9 @@
 #'
 #' @export
 #'
-#' @seealso [prcomp()] used to calculate the PC score matrix; 
-#'          [get.conf.matrix()] used to identify PCs that are significantly associated with the input;
-#'          [findPCs()] used to derive and identify PCs for the breast cancer cohort with two subtypes (ER+ and ER-).
+#' @seealso [prcomp] used to calculate the PC score matrix; 
+#'          [get.conf.matrix] used to identify PCs that are significantly associated with the input;
+#'          [findPCs] used to derive and identify PCs for the breast cancer cohort with two subtypes (ER+ and ER-).
 #'
 #' @examples #load the datasets
 #' @examples data(gene)
@@ -52,7 +50,7 @@
 #' @examples pc.gene[[2]]$sig.asso.covs
 #'
 #' @import MRGN
-#' @import usethis
+#' @importFrom stats complete.cases
 
 
 #findPCs <- function(data, startCol, GeneNameCol, type.ind, com.ind, type, bsize){

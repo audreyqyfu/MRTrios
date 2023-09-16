@@ -74,7 +74,7 @@ pc.gene[[2]]$sig.asso.covs
 
 }
 \seealso{
-\code{\link[=prcomp]{prcomp()}} used to calculate the PC score matrix;
-\code{\link[=get.conf.matrix]{get.conf.matrix()}} used to identify PCs that are significantly associated with the input;
-\code{\link[=findPCsGeneral]{findPCsGeneral()}} used to derive and identify PCs for general cases where there are no subtypes.
+\link{prcomp} used to calculate the PC score matrix;
+\link{get.conf.matrix} used to identify PCs that are significantly associated with the input;
+\link{findPCsGeneral} used to derive and identify PCs for general cases where there are no subtypes.
 }

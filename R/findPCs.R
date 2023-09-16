@@ -31,9 +31,9 @@
 #'
 #' @export
 #'
-#' @seealso [prcomp()] used to calculate the PC score matrix; 
-#'          [get.conf.matrix()] used to identify PCs that are significantly associated with the input;
-#'          [findPCsGeneral()] used to derive and identify PCs for general cases where there are no subtypes.
+#' @seealso [prcomp] used to calculate the PC score matrix; 
+#'          [get.conf.matrix] used to identify PCs that are significantly associated with the input;
+#'          [findPCsGeneral] used to derive and identify PCs for general cases where there are no subtypes.
 #'
 #' @examples #load the datasets
 #' @examples data(gene)
@@ -55,7 +55,7 @@
 #' @examples pc.gene[[2]]$sig.asso.covs
 #'
 #' @import MRGN
-#' @import usethis
+#' @importFrom stats complete.cases
 
 
 findPCs <- function(data, startCol=3, GeneNameCol=1, type.ind, com.ind, type, bsize){

@@ -56,15 +56,6 @@ List of 22
  $ : Named int [1:11] 1 2 3 4 6 7 9 18 28 35 ...
   ..- attr(*, "names")= chr [1:11] "V1" "V2" "V3" "V4" ...
 }
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
 \examples{
 data(sig.pcs.gene)
 }

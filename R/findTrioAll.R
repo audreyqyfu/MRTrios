@@ -20,7 +20,11 @@
 #' @return           row number of the gene in gene expression data
 #' @export
 #'
-#' @seealso [findDups()] to find duplicated rows; [removeNA()] to find rows with all NA for numeric values; [trios()] to form trio for each gene using gene names, [entrezCNA()] to match trios in CNA data with Gene Expression data based on entrez IDs, [entrezGENE()] to match trios in Gene Expression data with CNA data based on entrez IDs
+#' @seealso [findDups] to find duplicated rows; 
+#'          [removeNA] to find rows with all NA for numeric values; 
+#'          [trios] to form trio for each gene using gene names;
+#'          [entrezCNA] to match trios in CNA data with Gene Expression data based on entrez IDs;
+#'          [entrezGENE] to match trios in Gene Expression data with CNA data based on entrez IDs
 #'
 #' @examples #use the function to form trios of genes between methylation, gene expression, and cna data
 #' @examples trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)

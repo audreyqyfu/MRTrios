@@ -13,20 +13,25 @@
 #'
 #' @export
 #'
-#' @seealso [findDups()] to find duplicated rows
+#' @seealso [findDups] to find duplicated rows
 #'
-#' @examples #use the function to match trios using gene name and entrez ID
-#' @examples trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
-#' @examples trios.df
+#' @examples 
+#' # Match trios using gene name and entrez ID
+#' trios.df = findTrioAll(meth, cna, gene, 5, 3, 3)
+#' trios.df
 #'
-#' @examples #use the function match additional entries in the CNA column of trios data using the package "org.Hs.eg.db"
-#' @examples result = addDupsCNA(trios.df, cna)
+#' @examples 
+#' # Match additional entries in the CNA column of trios data using package "org.Hs.eg.db"
+#' result = addDupsCNA(trios.df, cna)
 #'
-#' @examples #initial trios data with entries in the CNA column filled in after matching
-#' @examples result[[1]]
+#' @examples 
+#' # Initial trios data with entries in the CNA column filled in after matching
+#' result[[1]]
 #'
-#' @examples #additional trios data for genes that were matched and had multiple entrez id matches in the CNA data
-#' @examples result[[2]]
+#' @examples 
+#' # Additional trios data for genes that were matched 
+#' # and had multiple entrez id matches in the CNA data
+#' result[[2]]
 #'
 
 

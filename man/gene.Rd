@@ -5,25 +5,11 @@
  Gene Expression dataset
 }
 \description{
- A dataset containing the gene names, Entrez ID and expression values for individuals. The variables are as follows:
+ A dataset containing the gene names, Entrez ID and expression values for individuals. It is a subset of a whole genome gene expression dataset.
 }
 \usage{data("gene")}
 \format{
-  A data frame with 22 observations on the following 1102 variables.
-  \describe{
-    \item{\code{Hugo_Symbol}}{Gene names}
-    \item{\code{Entrez_Gene_Id}}{Unique identifiers for the gene}
-    \item{\samp{TCGA-3C-AAAU-01}}{Individual ID}
-  }
-}
-\details{
-The data provided in the package is a sample from the original data
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
+  A data frame with 22 observations of 1102 variables.  The first two variables are Hugo_Symbol (for gene name) and Entrez_Gene_Id.  The remaining variables are IDs of individuals.
 }
 \examples{
 data(gene)
@@ -31,6 +17,6 @@ data(gene)
 \keyword{datasets}
 
 \seealso{
-\code{\link[=trios]{trios()}}
+\code{\link[=trios]{trios}}
 }
 

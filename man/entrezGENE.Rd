@@ -53,5 +53,5 @@ result
 
 }
 \seealso{
-\code{\link[=trios]{trios()}} to get the input data (trios data) used in this function
+\link{trios} to get the input data (trios data) used in this function
 }
