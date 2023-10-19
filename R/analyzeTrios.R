@@ -182,7 +182,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
 
   # write to file if writeToFile is TRUE
   if (writeToFile) {
-    result.colnames <- c("Index", "b11", "b12", "b21", "b22", "V1:T1", "V1:T2", "pb11", "pb12", "pb21", "pb22", "pV1:T1", "pV1:T2", "Minor.freq", "Inferred.Model", "Total.PC.Count")
+    result.colnames <- c("Index","Gene name","meth.row","cna.row","gene.row", "b11", "b12", "b21", "b22", "V1:T1", "V1:T2", "pb11", "pb12", "pb21", "pb22", "pV1:T1", "pV1:T2", "Minor.freq", "Inferred.Model", "Total.PC.Count")
     write.table(t(result.colnames), file = file, sep = "\t", row.names = FALSE, col.names = FALSE, append = FALSE, quote = FALSE)
   }
   
@@ -256,7 +256,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
 
         
         #combine the row number of trios, model type, and pc count
-        final <- cbind(i, res, Total.PC.Count)
+        final <- cbind(i,trios[i,], res, Total.PC.Count)
 
         # write to file if writeToFile is TRUE
         if (writeToFile) {
