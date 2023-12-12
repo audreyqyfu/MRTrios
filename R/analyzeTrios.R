@@ -234,7 +234,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
         complete_rows <- final.mat.1 == 0
         if(sum(complete_rows) > nObs) {
           final.mat.complete <- final.mat[complete_rows,]
-        }
+        
         
         #check if a categorical variable has at least 2 levels
         if ((nlevels(as.factor(final.mat.complete$race)) >= 2)&
@@ -268,7 +268,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
       }
     }
   }
-
+}
   #return the dataset
   colnames(result)[1] <- "Index"
   return(result)
