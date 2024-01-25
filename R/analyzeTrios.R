@@ -113,7 +113,7 @@
 #' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], 
 #'       pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, 
 #'       clinical.pos, meth.table.pos, gene.table.pos, 
-#'       age.col=2, race.col=3, nObs = 30, nPCs = 50)
+#'       age.col=5, race.col=26, sex.col=6, nObs = 30, nPCs = 50)
 #' final.result
 #' 
 #' # You can also write the results to an external file while the function runs
@@ -122,7 +122,7 @@
 #' final.result = analyzeTrios(meth, gene, cna, final.trios.df[1:5,], 
 #'         pc.meth.pos, pc.gene.pos, sig.pcs.meth, sig.pcs.gene, 
 #'         clinical.pos, meth.table.pos, gene.table.pos, 
-#'         age.col=2, race.col=3, writeToFile = TRUE, file = "trio_results.txt")
+#'         age.col=5, race.col=26, sex.col=6, writeToFile = TRUE, file = "trio_results.txt")
 #' }
 #'  
 #' 
@@ -143,7 +143,7 @@
 #' final.result = analyzeTrios(meth, gene, cna, final.trios.df, 
 #'         pc.meth.pos.tmp, pc.gene.pos.tmp, sig.pcs.meth.tmp, sig.pcs.gene.tmp, 
 #'         clinical.pos, meth.table.pos, gene.table.pos, 
-#'         age.col = 2, race.col = 3, nObs = 30, nPCs = 50)
+#'         age.col=5, race.col=26, sex.col=6, nObs = 30, nPCs = 50)
 #' final.result
 #' }
 #'
@@ -230,7 +230,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
         Total.PC.Count <- sum (c (ncol(sig.pc.gene), ncol (sig.pc.meth)), na.rm=TRUE)
         
         #create matrix with the trios and the confounding variables
-        final.mat <- cbind(trio.mat, sig.pc.gene, sig.pc.meth, age, race)
+        final.mat <- cbind(trio.mat, sig.pc.gene, sig.pc.meth, age, race, sex)
         #extracting row with no NAS
         final.mat.1 <- rowSums(is.na(final.mat))
         complete_rows <- final.mat.1 == 0
@@ -239,7 +239,8 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
         
         #check if a categorical variable has at least 2 levels
         if ((nlevels(as.factor(final.mat.complete$race)) >= 2)&
-            (nlevels(as.factor(final.mat.complete[,1])) >=2)) {
+            (nlevels(as.factor(final.mat.complete[,1])) >=2)&
+            (nlevels(as.factor(final.mat.complete$sex)) >= 2)) {
           
           #apply MRGN and infer the trio
           res = infer.trio(as.data.frame(final.mat.complete), use.perm = TRUE, is.CNA = TRUE, nperms = 500)
