@@ -238,23 +238,15 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
           final.mat.complete <- final.mat[complete_rows,]
         
         #check if a categorical variable has at least 2 levels
-        if ((nlevels(as.factor(final.mat.complete$race)) >= 2)&
-            (nlevels(as.factor(final.mat.complete[,1])) >=2)&
-            (nlevels(as.factor(final.mat.complete$sex)) >= 2)) {
-          
-          #apply MRGN and infer the trio
+         if(nrow(final.mat.complete) > 0) {
+         if (nlevels(as.factor(final.mat.complete$race)) < 2 || nlevels(as.factor(final.mat.complete$sex)) < 2) {
+         final.mat.complete <- final.mat.complete[, !(names(final.mat.complete) %in% c("race", "sex"))]
+            }
+            
+         if (nrow(final.mat.complete) > 0) {
           res = infer.trio(as.data.frame(final.mat.complete), use.perm = TRUE, is.CNA = TRUE, nperms = 500)
-        }
-        else {
-          # Remove the "race" column if it doesn't have at least 2 levels
-          if (nlevels(as.factor(final.mat.complete$race)) < 2){
-            final.mat.complete <- final.mat.complete[, -which(names(final.mat.complete) == "race")]
-            
-            
-            #apply MRGN and infer the trio
-            res = infer.trio(as.data.frame(final.mat.complete), use.perm = TRUE, is.CNA = TRUE, nperms = 500)
+            }
           }
-        }
 
         #combine the row number of trios, model type, and pc count
         final <- cbind(i,trios[i,], res, Total.PC.Count)
