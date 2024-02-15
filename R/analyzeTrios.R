@@ -273,7 +273,7 @@ analyzeTrios <- function(TCGA.meth, gene.exp, cna, trios, pc.meth, pc.gene, meth
         #combine the value for each trio in rows
         result <- rbind(result, final)
 
-      }
+      
     }
   }
 }
