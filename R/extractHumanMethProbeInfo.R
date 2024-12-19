@@ -76,7 +76,8 @@ extractHumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, t
   final_sd = NULL
   
   #get the row number in trios data for model types
-  rows <- df[which(df$Inferred.Model2 == modeltype), 1]
+  # use Inferred.Model3 for model type.  This is after additional filtering.
+  rows <- df[which(df$Inferred.Model3 == modeltype), 1]
   
   #trio data for the trios as specified by number of rows
   #trios[rows[1:num_rows],]

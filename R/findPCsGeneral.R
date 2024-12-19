@@ -40,7 +40,7 @@
 #' @examples com.ind = intersect(colnames(gene)[3:ncol(gene)], colnames(meth)[5:ncol(meth)])
 #'
 #' @examples #Use the function to get PC score matrix and significantly associated PCs.
-#' @examples pc.gene = findPCsGeneral(as.data.frame(gene), 3, 1, com.ind, 1)
+#' @examples pc.gene = findPCsGeneral(as.data.frame(gene), startCol=3, GeneNameCol=1, com.ind, bsize=1)
 #'
 #' @examples #The PC matrix
 #' @examples dim (pc.gene[[1]])
@@ -54,7 +54,7 @@
 
 
 #findPCs <- function(data, startCol, GeneNameCol, type.ind, com.ind, type, bsize){
-findPCsGeneral <- function(data, startCol=3, GeneNameCol=1, com.ind, bsize){
+findPCsGeneral <- function(data, startCol=3, GeneNameCol=1, com.ind, bsize=1){
     
   #finding common individuals between the 3 datasets and pos & neg ER individuals
 #  com.ind.type <- intersect(unlist(type.ind), com.ind)
