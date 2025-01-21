@@ -69,82 +69,74 @@
 #'
 
 
-extractHumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, trios, humanmeth, biomart, nstartMeth, nstartGene, nstartCNA, type.ind){
-  
-  #initialize mean and standard deviation
-  final_mean = NULL
-  final_sd = NULL
+HumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, trios, humanmeth, biomart, nstartMeth, nstartGene, nstartCNA, type.ind){
   
   #get the row number in trios data for model types
-  # use Inferred.Model3 for model type.  This is after additional filtering.
-  rows <- df[which(df$Inferred.Model3 == modeltype), 1]
-  
-  #trio data for the trios as specified by number of rows
-  #trios[rows[1:num_rows],]
-  
-  trio_row = rows
-  
+  trio_row <- df %>% filter(Inferred.Model3 == modeltype)%>% pull(trio_row)
   print(length(trio_row))
-  
   #row numbers for those trios in the Methylation data
-  data_row = trios[trio_row, 2]
+  meth_row_in_trios <- trios %>% slice(trio_row) %>% pull(meth.row)
   
   #finding common individuals among the 3 datasets
-  com.ind1 = intersect(colnames(gene.exp)[nstartGene:ncol(gene.exp)], colnames(TCGA.meth)[nstartMeth:ncol(TCGA.meth)]) #length 787
-  com.ind <- intersect(com.ind1, colnames(cna)[nstartCNA:ncol(cna)])
+  com.ind <- colnames(gene.exp)[nstartGene:ncol(gene.exp)] %>%
+    intersect(colnames(TCGA.meth)[nstartMeth:ncol(TCGA.meth)]) %>%
+    intersect(colnames(cna)[nstartCNA:ncol(cna)])
   
   #finding common individuals between the 3 datasets and pos & neg ER individuals
-  com.ind.type <- intersect(unlist(type.ind), com.ind)
+  com.ind.type <- type.ind %>% unlist() %>% intersect(com.ind)
   
   #find the column number of the individuals
   ind.col.data.type = match(com.ind.type, colnames(TCGA.meth))
   
   #get the data from meth data using the row numbers
-  data = TCGA.meth[data_row,]
+  
+  dat <- TCGA.meth %>% slice(meth_row_in_trios)
+  
+  data1 <- dat %>% select(ind.col.data.type)
   
   #loop through each row in the data from meth data
-  for(i in 1:nrow(data)){
-    
-    #get the mean for each row
-    mean = mean(unlist(data[i,ind.col.data.type]), na.rm = TRUE)
-    
-    #save all the mean for all rows in data
-    final_mean = c(final_mean, mean)
-    
-    #get the standard dev for each row
-    sd = sd(unlist(data[i,ind.col.data.type]), na.rm = TRUE)
-    
-    #save all the standard dev for all rows in data
-    final_sd = c(final_sd, sd)
-    
-  }
+  #initialize mean and standard deviation
+  #loop through each row in the data from meth data
+  #for(i in 1:nrow(data)){
+  
+  #get the mean for each row
+  mean=rowMeans(data1,na.rm = T)
+  #mean = mean(unlist(data[i,ind.col.data.type]), na.rm = TRUE)
+  
+  #save all the mean for all rows in data
+  #final_mean = c(final_mean, mean)
+  
+  #get the standard dev for each row
+  sd=apply(data1,1,sd,na.rm=T)
+  #sd = sd(unlist(data[i,ind.col.data.type]), na.rm = TRUE)
+  
+  #save all the standard dev for all rows in data
+  #final_sd = c(final_sd, sd)
+  
+  
+  #final_mean <- apply(data[,ind.col.data.type],1,mean)
+  #final_sd <- apply(data[,ind.col.data.type],1,sd)
   
   #match the probe id in data to human meth data
-  rows_in_humanmeth = match(data[,1], humanmeth$Name)
+  rows_in_humanmeth<- match(dat$Row.names,humanmeth$Name)
   
   #extract the data from human meth using the row numbers
-  final_humanmeth = humanmeth[rows_in_humanmeth,]
+  final_humanmeth <- humanmeth %>% slice(rows_in_humanmeth)
   
-  #print mean and standard dev
-  #print(final_mean)
-  #print(final_sd)
-  
-  final_data = cbind(final_humanmeth[,c("IlmnID","UCSC_RefGene_Name","Genome_Build", "CHR", "MAPINFO", "UCSC_CpG_Islands_Name", "Relation_to_UCSC_CpG_Island")], trio_row)
-  
+  #final_data = cbind(final_humanmeth[,c("IlmnID","UCSC_RefGene_Name","Genome_Build", "CHR", "MAPINFO", "UCSC_CpG_Islands_Name", "Relation_to_UCSC_CpG_Island")], trio_row)
+  final_data = final_humanmeth %>% select("IlmnID","UCSC_RefGene_Name","Genome_Build", "CHR", "MAPINFO", "UCSC_CpG_Islands_Name", "Relation_to_UCSC_CpG_Island") %>% mutate(Trio_row=trio_row)
   #remove the transcript and TSS columns for now
+  uni_biomart <- biomart %>% distinct()
   #uni_biomart = unique(biomart[,-c(3,4,7)])
-  
-  uni_biomart = biomart
+  #uni_biomart = biomart
   
   #initialize
   final = NULL
-  
+  final_res= NULL
   
   #loop through each row in the data
   for(i in 1:nrow(final_data)){
-    
     print(i)
-    
     avg_cpG_sites = NA
     diff_cpG_mapinfo = NA
     
@@ -164,7 +156,6 @@ extractHumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, t
       
     }
     
-    
     for(j in 1:length(genes_humanmeth)){
       
       uni_biomart_row = which(uni_biomart$Gene.name == genes_humanmeth[j])
@@ -177,31 +168,15 @@ extractHumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, t
         #### 3
         gene_length = uni_biomart$Gene.end..bp.[uni_biomart_row] - uni_biomart$Gene.start..bp.[uni_biomart_row]
         
-        res = cbind(genes_humanmeth[j], uni_biomart$Gene.stable.ID[uni_biomart_row], uni_biomart$Gene.stable.ID.version[uni_biomart_row], uni_biomart$Gene.start..bp.[uni_biomart_row], uni_biomart$Gene.end..bp.[uni_biomart_row], diff_cpG_mapinfo, diff_mapinfo_geneStart, gene_length, final_mean[i], final_sd[i], uni_biomart$Gene...GC.content[uni_biomart_row])
+        res = cbind(genes_humanmeth[j], uni_biomart[uni_biomart_row,], diff_cpG_mapinfo, diff_mapinfo_geneStart, gene_length, mean[i], sd[i])
+        colnames(res) = c("Biomart_GeneName", colnames(uni_biomart),"diff_cpG_mapinfo", "diff_mapinfo_geneStart", "gene_length","Methyl_mean", "Methyl_sd")
         
         final = rbind(final, cbind(final_data[i,], res))
       }
     }
     
-    
   }
-  
-  colnames(final)[c(9,10,11,12,13,17,18,19)] = c("Biomart_GeneName", "Gene.stable.ID", "Gene.stable.ID.version", "Gene_start", "Gene_end", "Methyl_mean", "Methyl_sd", "GC_content")
-  
-  final_res = NULL
-  
-  #return the human meth data
-  #return(final_data)
-  for(i in 1:nrow(final)){
-    
-    #print(paste(i, "second"))
-    
-    if(final$Biomart_GeneName[i] %in% unique(trios[,1]) == TRUE){
-      
-      final_res = rbind(final_res, final[i,])
-    }
-  }
+  final_res=final %>% filter(Biomart_GeneName %in% trios$Gene.name)
   
   return(final_res)
 }
-
