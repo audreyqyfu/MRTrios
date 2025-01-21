@@ -62,14 +62,14 @@
 #' @examples #Run postFilter() on results from analyzeTrios() to get an object 'df'
 #' 
 #' \dontrun{
-#' probe_info_data = HumanMethProbeInfo(df, "M1.1", meth, gene, cna, 
+#' probe_info_data = extractHumanMethProbeInfo(df, "M1.1", meth, gene, cna, 
 #'         final.trios.df, humanmeth, biomart, 
 #'         nstartMeth=5, nstartGene=3, nstartCNA=3, type.ind=clinical.pos)
 #' }
 #'
 
 
-HumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, trios, humanmeth, biomart, nstartMeth, nstartGene, nstartCNA, type.ind){
+extractHumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, trios, humanmeth, biomart, nstartMeth, nstartGene, nstartCNA, type.ind){
   
   #get the row number in trios data for model types
   trio_row <- df %>% filter(Inferred.Model3 == modeltype)%>% pull(trio_row)
@@ -127,8 +127,6 @@ HumanMethProbeInfo <- function(df, modeltype, TCGA.meth, gene.exp, cna, trios, h
   final_data = final_humanmeth %>% select("IlmnID","UCSC_RefGene_Name","Genome_Build", "CHR", "MAPINFO", "UCSC_CpG_Islands_Name", "Relation_to_UCSC_CpG_Island") %>% mutate(Trio_row=trio_row)
   #remove the transcript and TSS columns for now
   uni_biomart <- biomart %>% distinct()
-  #uni_biomart = unique(biomart[,-c(3,4,7)])
-  #uni_biomart = biomart
   
   #initialize
   final = NULL
